@@ -57,21 +57,24 @@ final class GifDetailViewController: UIViewController {
             target: self,
             action: #selector(shareButtonPressed)
         )
-
+        
         comunicateBtn.tintColor = UIColor.white
-
+        
         self.navigationItem.rightBarButtonItem = comunicateBtn
-
+        
     }
     
     @objc private func shareButtonPressed() {
+        
+        guard let imageUrl = URL(string: self.imageUrl) else { return }
         
         let imageToShare = [imageUrl]
         let activityController = UIActivityViewController(
             activityItems: imageToShare,
             applicationActivities: nil
         )
-        present(activityController, animated: true, completion: nil)
+        self.present(activityController, animated: true, completion: nil)
+        
     }
     
     @objc private func copyButtonPressed() {
