@@ -66,9 +66,9 @@ final class GifDetailViewController: UIViewController {
     
     @objc private func shareButtonPressed() {
         
-        guard let imageUrl = URL(string: self.imageUrl) else { return }
+        guard let image = hdPreviewImageView.image else { return }
         
-        let imageToShare = [imageUrl]
+        let imageToShare = [image]
         let activityController = UIActivityViewController(
             activityItems: imageToShare,
             applicationActivities: nil
