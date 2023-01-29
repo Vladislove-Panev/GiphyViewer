@@ -9,9 +9,9 @@ import UIKit
 
 final class GradientAnimationView: UIView {
     
-    private lazy var color1: CGColor = getRandomNumber().cgColor
-    private lazy var color2: CGColor = getRandomNumber().cgColor
-    private lazy var color3: CGColor = getRandomNumber().cgColor
+    private lazy var color1: CGColor = getRandomColor().cgColor
+    private lazy var color2: CGColor = getRandomColor().cgColor
+    private lazy var color3: CGColor = getRandomColor().cgColor
     
     let gradient: CAGradientLayer = CAGradientLayer()
     var gradientColorSet: [[CGColor]] = []
@@ -61,7 +61,7 @@ final class GradientAnimationView: UIView {
         }
     }
     
-    private func getRandomNumber() -> UIColor {
+    private func getRandomColor() -> UIColor {
         
         let red = CGFloat(drand48())
         let green = CGFloat(drand48())
