@@ -35,6 +35,7 @@ final class GifCell: UICollectionViewCell, GiffCellProtocol {
         super.prepareForReuse()
         imageView.sd_cancelCurrentImageLoad()
         imageView.stopAnimating()
+        imageView.image = nil
     }
     
     private func setupLayout() {
