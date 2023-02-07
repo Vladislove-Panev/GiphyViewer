@@ -14,7 +14,7 @@ protocol MainPresenterInput: AnyObject {
 final class MainPresenter {
  
     private let service: GiphyServiceInput
-    private let view: MainViewControllerInput
+    private weak var view: MainViewControllerInput?
     private let dataConverter: MainDataConverterInput
     private var model: [GifDetail] = []
     private var isLoading = false
@@ -38,7 +38,7 @@ final class MainPresenter {
 extension MainPresenter: GiphyCollectionViewManagerDelegate {
     
     func didSelectItem(at index: Int, cell: GiffCellProtocol?) {
-        view.didSelect(item: model[index], cell: cell)
+        view?.didSelect(item: model[index], cell: cell)
     }
     
     func loadMoreGifs() {
@@ -51,7 +51,7 @@ extension MainPresenter: GiphyCollectionViewManagerDelegate {
 
 extension MainPresenter: MainPresenterInput {
     func viewDidLoad() {
-        view.showPreloaderView()
+        view?.showPreloaderView()
         service.getTrendingGifs(with: limit, offset: model.count)
         isLoading = true
     }
@@ -61,14 +61,14 @@ extension MainPresenter: GiphyServiceOutput {
     
     func didGetTrends(trends: GiphyTrending) {
         model.append(contentsOf: trends.data)
-        view.update(with: assembleViewModel())
+        view?.update(with: assembleViewModel())
         isLoading = false
-        view.hidePreloaderView()
+        view?.hidePreloaderView()
     }
     
     func didFailedGetTrends(error: Error) {
-        view.showErrorAlert(error: error)
+        view?.showErrorAlert(error: error)
         isLoading = false
-        view.hidePreloaderView()
+        view?.hidePreloaderView()
     }
 }

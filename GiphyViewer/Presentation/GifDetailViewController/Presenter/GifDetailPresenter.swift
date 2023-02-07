@@ -16,7 +16,7 @@ final class GifDetailPresenter {
     
     private let id: String
     private let service: GiphyServiceInput
-    private let view: GifDetailViewInput
+    private weak var view: GifDetailViewInput?
     private var viewModel: DetailViewModel?
     
     init(
@@ -37,7 +37,7 @@ extension GifDetailPresenter: GifDetailPresenterInput {
     }
 
     func viewDidLoad() {
-        view.showPreloaderView()
+        view?.showPreloaderView()
         service.getGifBy(id: id)
     }
 }
@@ -46,7 +46,7 @@ extension GifDetailPresenter: GiphyServiceOutput {
     
     func didGetDetail(detail: GifDetailData) {
         
-        view.hidePreloaderView()
+        view?.hidePreloaderView()
         
         guard let originalUrl = detail.data.images.original.url,
               let height = detail.data.images.original.height,
@@ -66,11 +66,11 @@ extension GifDetailPresenter: GiphyServiceOutput {
         
         let aspectRatio = viewModel.height / viewModel.width
         
-        view.setupLayout(with: aspectRatio, imageUrl: viewModel.hdImageUrl)
+        view?.setupLayout(with: aspectRatio, imageUrl: viewModel.hdImageUrl)
     }
     
     func didFailedGetDetail(error: Error) {
-        view.hidePreloaderView()
-        view.showErrorAlert(error: error)
+        view?.hidePreloaderView()
+        view?.showErrorAlert(error: error)
     }
 }
